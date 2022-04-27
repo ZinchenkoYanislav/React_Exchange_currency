@@ -1,24 +1,27 @@
 import React from "react";
 import { useState } from "react";
 import ExchangeForm from "../components/ExchangeForm";
-import useExchangeRate from "../hooks/useExchangeRate";
+import ExchangeHeader from "../components/ExchangeHeader";
+import useDollar from "../hooks/useDollar";
+import useEuro from "../hooks/useEuro";
 
 export default function ExchangePage() {
-  const { USD, EUR } = useExchangeRate();
   const [koef, setKoef] = useState(0);
+
+  const { dollarRate } = useDollar();
+  const { euroRate } = useEuro();
 
   function checkCurrency(value1, value2) {
     if (value1 === "UAH" && value2 === "USD") {
-      setKoef(USD[0].rate);
+      setKoef(dollarRate);
     } else if (value1 === "UAH" && value2 === "EUR") {
-      let rate = EUR[0].rate;
-      setKoef(rate);
+      setKoef(euroRate);
     } else if (value1 === "USD" && value2 === "UAH") {
-      setKoef(1 / USD[0].rate);
+      setKoef(1 / dollarRate);
     } else if (value1 === "USD" && value2 === "EUR") {
       setKoef(1.05);
     } else if (value1 === "EUR" && value2 === "UAH") {
-      setKoef(1 / EUR[0].rate);
+      setKoef(1 / euroRate);
     } else if (value1 === "EUR" && value2 === "USD") {
       setKoef(0.95);
     } else {
@@ -28,10 +31,8 @@ export default function ExchangePage() {
 
   return (
     <div>
-      <ExchangeForm
-      koef={koef}
-        checkCurrency={checkCurrency}
-      />
+      <ExchangeHeader />
+      <ExchangeForm koef={koef} checkCurrency={checkCurrency} />
     </div>
   );
 }

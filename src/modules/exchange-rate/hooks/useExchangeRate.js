@@ -6,8 +6,6 @@ export default function useExchangeRate() {
   useEffect(() => {
     fetchExchange().then(({ data }) => setExchangeRate(data));
   }, []);
-  let USD = exchangeRate.filter((item) => item.cc === "USD");
-  let EUR = exchangeRate.filter((item) => item.cc === "EUR");
 
-  return { exchangeRate, USD, EUR };
+  return { exchangeRate };
 }
