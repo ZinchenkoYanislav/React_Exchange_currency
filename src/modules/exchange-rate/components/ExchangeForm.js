@@ -4,34 +4,37 @@ import { MenuItem, TextField } from "@mui/material";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { useState } from "react";
 
-export default function ExchangeForm({ koef, checkCurrency }) {
+export default function ExchangeForm({ getKoef }) {
   const [firstTextValue, setFirstTextValue] = useState(0);
   const [secondTextValue, setSecondTextValue] = useState(0);
 
-  const [currencySelect1, setCurrencySelect1] = useState("UAH");
-  const [currencySelect2, setCurrencySelect2] = useState("UAH");
+  const [currencySelect1, setCurrencySelect1] = useState("");
+  const [currencySelect2, setCurrencySelect2] = useState("");
 
   const handleChangeSelect1 = (event) => {
     setCurrencySelect1(event.target.value);
-    // checkCurrency(currencySelect1, currencySelect2);
+
     setFirstTextValue(0);
     setSecondTextValue(0);
   };
+
   function handleChangeText1(e) {
     setFirstTextValue(e.target.value);
-    // checkCurrency(currencySelect1, currencySelect2);
-    setSecondTextValue((e.target.value / koef).toFixed(2));
+
+    let koef = getKoef(currencySelect1, currencySelect2);
+    setSecondTextValue((e.target.value * koef).toFixed(2));
   }
 
   function handleChangeText2(e) {
     setSecondTextValue(e.target.value);
-    //  checkCurrency(currencySelect1, currencySelect2);
+
+    let koef = getKoef(currencySelect2, currencySelect1);
     setFirstTextValue((e.target.value * koef).toFixed(2));
   }
 
   const handleChangeSelect2 = (event) => {
     setCurrencySelect2(event.target.value);
-    checkCurrency(currencySelect1, currencySelect2);
+
     setFirstTextValue(0);
     setSecondTextValue(0);
   };
@@ -51,7 +54,6 @@ export default function ExchangeForm({ koef, checkCurrency }) {
     },
   ];
 
-  checkCurrency(currencySelect1, currencySelect2);
   return (
     <>
       <Box

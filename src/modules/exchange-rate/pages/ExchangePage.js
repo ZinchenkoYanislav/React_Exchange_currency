@@ -1,38 +1,37 @@
 import React from "react";
-import { useState } from "react";
 import ExchangeForm from "../components/ExchangeForm";
 import ExchangeHeader from "../components/ExchangeHeader";
-import useDollar from "../hooks/useDollar";
-import useEuro from "../hooks/useEuro";
+import UseExchangeRate from "../hooks/UseExchangeRate";
 
 export default function ExchangePage() {
-  const [koef, setKoef] = useState(0);
+  const { exchangeRate } = UseExchangeRate();
 
-  const { dollarRate } = useDollar();
-  const { euroRate } = useEuro();
-
-  function checkCurrency(value1, value2) {
-    if (value1 === "UAH" && value2 === "USD") {
-      setKoef(dollarRate);
-    } else if (value1 === "UAH" && value2 === "EUR") {
-      setKoef(euroRate);
-    } else if (value1 === "USD" && value2 === "UAH") {
-      setKoef(1 / dollarRate);
-    } else if (value1 === "USD" && value2 === "EUR") {
-      setKoef(1.05);
-    } else if (value1 === "EUR" && value2 === "UAH") {
-      setKoef(1 / euroRate);
-    } else if (value1 === "EUR" && value2 === "USD") {
-      setKoef(0.95);
+  function getKoef(value1, value2) {
+    let koef = 0;
+    if (value1 === "UAH" && value2 === "UAH") {
+      koef = 1;
+    } else if (value1 === "UAH") {
+      const rate1 = 1;
+      const rate2 = exchangeRate.filter((item) => item.cc === value2)[0].rate;
+      koef = rate1 / rate2;
+    } else if (value2 === "UAH") {
+      const rate2 = 1;
+      const rate1 = exchangeRate.filter((item) => item.cc === value1)[0].rate;
+      koef = rate1 / rate2;
+    } else if (!value1 || !value2) {
+      koef = 0;
     } else {
-      setKoef(1);
+      const rate1 = exchangeRate.filter((item) => item.cc === value1)[0].rate;
+      const rate2 = exchangeRate.filter((item) => item.cc === value2)[0].rate;
+      koef = rate1 / rate2;
     }
+    return koef;
   }
 
   return (
     <div>
       <ExchangeHeader />
-      <ExchangeForm koef={koef} checkCurrency={checkCurrency} />
+      <ExchangeForm getKoef={getKoef} />
     </div>
   );
 }
