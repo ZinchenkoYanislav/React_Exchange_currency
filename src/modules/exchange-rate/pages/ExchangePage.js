@@ -1,7 +1,7 @@
 import React from "react";
 import ExchangeForm from "../components/ExchangeForm";
 import ExchangeHeader from "../components/ExchangeHeader";
-import UseExchangeRate from "../hooks/UseExchangeRate";
+import UseExchangeRate from "./UseExchangeRate";
 
 export default function ExchangePage() {
   const { exchangeRate } = UseExchangeRate();
