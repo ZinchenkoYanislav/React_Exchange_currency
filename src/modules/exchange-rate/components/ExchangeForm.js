@@ -14,8 +14,8 @@ export default function ExchangeForm({ getKoef }) {
   const handleChangeSelect1 = (event) => {
     setCurrencySelect1(event.target.value);
 
-    setFirstTextValue(0);
-    setSecondTextValue(0);
+    setFirstTextValue('');
+    setSecondTextValue('');
   };
 
   function handleChangeText1(e) {
@@ -35,8 +35,8 @@ export default function ExchangeForm({ getKoef }) {
   const handleChangeSelect2 = (event) => {
     setCurrencySelect2(event.target.value);
 
-    setFirstTextValue(0);
-    setSecondTextValue(0);
+    setFirstTextValue('');
+    setSecondTextValue('');
   };
 
   const currencies = [
