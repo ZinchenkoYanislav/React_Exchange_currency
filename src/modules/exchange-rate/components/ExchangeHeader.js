@@ -16,23 +16,22 @@ export default function ExchangeHeader() {
             variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { md: "flex" } }}
+            sx={{ mr: 2, display:  {xs: 'none' , sm: "none", md:"flex"}   }}
+
           >
             Exchange
           </Typography>
           <Typography
             variant="h6"
-            noWrap
             component="div"
-            sx={{ ml: 10, mr: 4, display: { md: "flex" } }}
+            sx={{ ml: {xs:'none', sm: 10}, mr: 1, display: { md: "flex" }, fontSize: {xs: 11, sm: 20}}}
           >
             USD = {dollar} UAH
           </Typography>
           <Typography
             variant="h6"
-            noWrap
             component="div"
-            sx={{ ml: 10, mr: 4, display: { md: "flex" } }}
+            sx={{ ml: {xs:'none', sm: 10}, mr: 1, display: { md: "flex" }, fontSize: {xs: 11, sm: 20}}}
           >
             EUR = {euro} UAH
           </Typography>
