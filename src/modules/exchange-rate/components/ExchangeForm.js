@@ -5,8 +5,8 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { useState } from "react";
 
 export default function ExchangeForm({ getKoef }) {
-  const [firstTextValue, setFirstTextValue] = useState(0);
-  const [secondTextValue, setSecondTextValue] = useState(0);
+  const [firstTextValue, setFirstTextValue] = useState("");
+  const [secondTextValue, setSecondTextValue] = useState("");
 
   const [currencySelect1, setCurrencySelect1] = useState("");
   const [currencySelect2, setCurrencySelect2] = useState("");
@@ -83,12 +83,13 @@ export default function ExchangeForm({ getKoef }) {
             value={firstTextValue}
             onChange={handleChangeText1}
             variant="outlined"
+            placeholder={0}
           />
         </div>
         <CurrencyExchangeIcon sx={{ ml: 24 }} />
         <div>
           <TextField
-            id="first"
+            id="second"
             select
             label="Select"
             value={currencySelect2}
@@ -101,6 +102,7 @@ export default function ExchangeForm({ getKoef }) {
             ))}
           </TextField>
           <TextField
+            placeholder={0}
             type="number"
             value={secondTextValue}
             onChange={handleChangeText2}
