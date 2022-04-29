@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import React from "react";
 import Box from "@mui/material/Box";
 import { MenuItem, TextField } from "@mui/material";
@@ -12,7 +13,7 @@ export default function ExchangeForm({ getKoef }) {
   const [currencySelect1, setCurrencySelect1] = useState("");
   const [currencySelect2, setCurrencySelect2] = useState("");
 
-  useEffect(() => getOnChangeSelect1(), [currencySelect1]);
+  useEffect(() => getOnChangeSelect1(), [currencySelect1])
   useEffect(() => getOnChangeSelect2(), [currencySelect2]);
 
   function getOnChangeSelect1() {
