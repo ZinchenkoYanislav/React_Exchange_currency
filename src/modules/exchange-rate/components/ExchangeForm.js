@@ -16,13 +16,17 @@ export default function ExchangeForm({ getKoef }) {
   useEffect(() => getOnChangeSelect2(), [currencySelect2]);
 
   function getOnChangeSelect1() {
-    let koef = getKoef(currencySelect1, currencySelect2);
-    setSecondTextValue((firstTextValue * koef).toFixed(2));
+    if (firstTextValue && secondTextValue) {
+      let koef = getKoef(currencySelect1, currencySelect2);
+      setSecondTextValue((firstTextValue * koef).toFixed(2));
+    }
   }
 
   function getOnChangeSelect2() {
-    let koef = getKoef(currencySelect2, currencySelect1);
-    setFirstTextValue((secondTextValue * koef).toFixed(2));
+    if (firstTextValue && secondTextValue) {
+      let koef = getKoef(currencySelect2, currencySelect1);
+      setFirstTextValue((secondTextValue * koef).toFixed(2));
+    }
   }
 
   const handleChangeSelect1 = (event) => {
