@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { MenuItem, TextField } from "@mui/material";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function ExchangeForm({ getKoef }) {
   const [firstTextValue, setFirstTextValue] = useState("");
@@ -11,11 +12,21 @@ export default function ExchangeForm({ getKoef }) {
   const [currencySelect1, setCurrencySelect1] = useState("");
   const [currencySelect2, setCurrencySelect2] = useState("");
 
+  useEffect(() => getOnChangeSelect1(), [currencySelect1]);
+  useEffect(() => getOnChangeSelect2(), [currencySelect2]);
+
+  function getOnChangeSelect1() {
+    let koef = getKoef(currencySelect1, currencySelect2);
+    setSecondTextValue((firstTextValue * koef).toFixed(2));
+  }
+
+  function getOnChangeSelect2() {
+    let koef = getKoef(currencySelect2, currencySelect1);
+    setFirstTextValue((secondTextValue * koef).toFixed(2));
+  }
+
   const handleChangeSelect1 = (event) => {
     setCurrencySelect1(event.target.value);
-
-    setFirstTextValue("");
-    setSecondTextValue("");
   };
 
   function handleChangeText1(e) {
@@ -34,9 +45,6 @@ export default function ExchangeForm({ getKoef }) {
 
   const handleChangeSelect2 = (event) => {
     setCurrencySelect2(event.target.value);
-
-    setFirstTextValue("");
-    setSecondTextValue("");
   };
 
   const currencies = [
